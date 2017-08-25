@@ -471,6 +471,38 @@ if (pushId != null) {
   });
 }
 ```
+
+### 分散配信機能について
+------
+
+※分散配信機能を使用する場合は、SDKのバージョン1.1.0以上を推奨します。
+
+分散配信機能は、配信対象の通知を複数のグループに分割し、分割したグループごとに通知を配信する機能になります。分散配信された通知の通知IDの値は、分割したグループごとに異なる値が割り当てられます。
+
+この通知IDと管理画面のアクション設定に記載のアクションキーの組み合わせをアクセス解析用のパラメータとして CORE ASPサーバに対して送信することで、分散配信された通知の起動数や各アクション数を分析することができます。
+
+アクションキーを含めたアクセス解析用のパラメータを CORE ASPサーバに送信するには、CorePushAppLaunchAnalyticsManager#requestAppLaunchAnalyticsメソッドを使用します。
+
+```java
+String pushId = ＜起動時に取得した通知IDの値＞
+
+// アクションキーの101を指定した場合
+if (pushId != null) {
+  CorePushAppLaunchAnalyticsManager appLaunchAnalyticsManager = new CorePushAppLaunchAnalyticsManager(this);
+  appLaunchAnalyticsManager.requestAppLaunchAnalytics(pushId, "101", "0", "0", new CorePushAppLaunchAnalyticsManager.CompletionHandler() {
+    @Override
+    public void appLaunchAnalyticsManagerSuccess() {
+      Toast.makeText(HomeActivity.this, "送信成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void appLaunchAnalyticsManagerFail() {
+      Toast.makeText(HomeActivity.this, "送信失敗", Toast.LENGTH_SHORT).show();
+
+    }
+  });
+}
+```
         
 ### プッシュ通知の送信エラー
 ------
