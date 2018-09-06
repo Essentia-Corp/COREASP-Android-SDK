@@ -44,6 +44,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 設定画面のアクティビティを設定 -->
+        <activity android:name=".SettingActivity"
+            android:screenOrientation="portrait"/>
+
+        　<!-- 履歴画面のアクティビティを設定 -->
+        <activity android:name=".HistoryActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
