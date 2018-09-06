@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">COREASP_SDK</string>
+    <string name="core_push_config_key">389e00f9718b40f360b3846944c7d7b4</string>
+    <string name="core_push_channel_id">app_channel_id</string>
+    <string name="core_push_channel_name">Push Notification</string>
+    <string name="core_push_sender_id">899270001845</string>
+</resources>
