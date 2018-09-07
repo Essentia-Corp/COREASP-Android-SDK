@@ -241,7 +241,6 @@ In order to utilize Notificaiton Channels in CorePush SDK, please specify in you
 ```xml
         <meta-data android:name="com.coreasp.corepush.notificationChannelId" android:value="@string/YOUR_CHANNEL_ID"/>
         
-
         <meta-data android:name="com.coreasp.corepush.notificationChannelName" android:value="@string/YOUR_CHANNEL_NAME"/>
         
         <meta-data android:name="com.coreasp.corepush.notificationChannelDescription" android:value="@string/YOUR_CHANNEL_DESCRIPTION"/>
