@@ -10,14 +10,8 @@ import android.widget.Toast;
 
 import com.coreasp.CorePushAppLaunchAnalyticsManager;
 import com.coreasp.CorePushManager;
-import com.coreasp.CorePushRegisterUserAttributeManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * 設定画面と通知履歴画面のタブを持つアクティビティ

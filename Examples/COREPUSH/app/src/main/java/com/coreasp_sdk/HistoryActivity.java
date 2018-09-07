@@ -1,8 +1,5 @@
 package com.coreasp_sdk;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -13,6 +10,9 @@ import android.widget.TextView;
 
 import com.coreasp.CorePushNotificationHistoryManager;
 import com.coreasp.CorePushNotificationHistoryModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *　通知履歴を表示するアクティビティ

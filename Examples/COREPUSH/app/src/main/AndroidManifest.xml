@@ -37,6 +37,25 @@
         <!-- ステータスバーに最新の１件を表示する場合はtrue、複数件表示する場合はfalseを指定します。デフォルト値はtrueになります。 -->
         <meta-data android:name="com.coreasp.corepush.notificationCollapsed" android:value="false"/>
 
+        <service android:name="com.coreasp.CorePushMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- CorePushInstanceIDService -->
+        <service android:name="com.coreasp.CorePushInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- CorePushRegistrationIntentService -->
+        <service android:name="com.coreasp.CorePushRegistrationIntentService" android:exported="false"/>
+
+        <!--  プッシュ通知のダイアログ用のアクティビティ -->
+        <activity android:name="com.coreasp.CorePushDialog" android:theme="@android:style/Theme.Dialog" android:launchMode="singleInstance" android:excludeFromRecents="true">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
