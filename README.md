@@ -8,8 +8,12 @@ COREASP Android SDK は、プッシュ通知ASPサービス「CORE ASP」の And
 
 CORE ASP：<a href="http://core-asp.com">http://core-asp.com</a>
 
-CORE ASP Developer（開発者向け）：<a href="http://developer.core-asp.com">http://developer.core-asp.com</a>## 前提
-* SDKは、Android4.1（Jelly Bean、APIレベル16）以上が動作対象になります。
+CORE ASP Developer（開発者向け）：<a href="http://developer.core-asp.com">http://developer.core-asp.com</a>
+
+
+## 前提
+
+* SDKは、Android4.1（Jelly Bean、APIレベル16）以上が動作対象になります。
 * SDKは、FirebaseのFirebase Cloud Messaging（以下、FCM）のライブラリを使用します。
 * SDKは、AARモジュールとして提供します。
 * ProGuard設定は、SDKのAARモジュールの一部として提供されます。そのため、COREASP SDK自体に関するProGuard設定を追加する必要はありません。
@@ -149,16 +153,20 @@ SDKの依存ライブラリを使用するように、build.gradleファイル�
 
 #### 設定キーの追加（必須）
 
-CORE ASP管理画面にログインし、ホーム画面からAndroidアプリの設定キーを確認してください。 この設定キーをApplicationManifest.xmlのmeta-data要素のcom.coreasp.corepush.configKeyのandroid:value属性の値に指定します。	
-```xml<!-- [必須] CORE PUSHの設定キー -->
+CORE ASP管理画面にログインし、ホーム画面からAndroidアプリの設定キーを確認してください。 この設定キーをApplicationManifest.xmlのmeta-data要素のcom.coreasp.corepush.configKeyのandroid:value属性の値に指定します。
+	
+```xml
+<!-- [必須] CORE PUSHの設定キー -->
 <meta-data android:name="com.coreasp.corepush.configKey" android:value="@string/core_push_config_key"/>
 ```
 meta-dataの読み込みに失敗した場合は、CoreAspManager#initialize呼び出し時にIllegalArgumentExceptionがスローされます。
 
 #### 通知の起動アクティビティの追加（必須）
-ステータスバーの通知をタップした後や通知ダイアログの表示をタップした後に起動するアクティビティのクラス名を
+
+ステータスバーの通知をタップした後や通知ダイアログの表示をタップした後に起動するアクティビティのクラス名を
 ApplicationManifest.xmlのmeta-data要素のcom.coreasp.corepush.notificationLaunchActivityのandroid:value属性の値に指定します。クラス名は絶対パス表記か相対パス表記で記載してください。
-```xml
+
+```xml
 <!-- [必須] CORE PUSHの通知起動時のアクティビティ -->
 <meta-data android:name="com.coreasp.corepush.notificationLaunchActivity" android:value=".MainActivity" />
 ```   
@@ -168,7 +176,8 @@ meta-dataの読み込みに失敗した場合は、CoreAspManager#initialize呼�
 #### 通知アイコンのリソースの追加（必須）
 
 通知時のステータスバーあるいは通知時のダイアログに表示されるアイコンのリソースIDをApplicationManifest.xmlのmeta-data要素のcom.coreasp.corepush.iconResourceIdのandroid:resource属性に指定します。ここで指定したアイコンリソースは、ステータスバーの通知アイコン(smallIcon)や通知ダイアログの通知アイコンに使用されます。
-```xml
+
+```xml
 <!-- [必須] CORE PUSHの通知のアイコンリソースID -->
 <meta-data android:name="com.coreasp.corepush.iconResourceId" android:resource="@mipmap/ic_launcher"/>
 ``` 
@@ -179,7 +188,9 @@ meta-dataの読み込みに失敗した場合は、CoreAspManager#initialize呼�
 
 Android5.0（Lollipop、APIレベル21）以上からマテリアルデザインに合わせて、ステータスバーの通知アイコン（smallIcon）は白で描画されるようになりました。
 また、通知アイコン画像の背後にある円形のアクセントカラーを指定できるようになりました。このアクセントカラーを変更するには、ApplicationManifest.xmlのmeta-data要素のcom.coreasp.corepush.iconAccentColorのandroid:resource属性に色のリソースを指定します。
-Android5.0未満では、以下の設定は無視されます。```xml
+Android5.0未満では、以下の設定は無視されます。
+
+```xml
 <!-- CORE PUSHの通知のアイコンのアクセント色 (Android5.0以上で有効)-->
 <meta-data android:name="com.coreasp.corepush.iconAccentColor" android:resource="@color/colorPrimary"/>
 ```
@@ -217,6 +228,34 @@ meta-dataに@integer/core\_push\_notification\_style\_dialog_and_statusBarの値
 ```
 
 meta-dataの読み込みに失敗した場合は、通知スタイルは[通知をステータスバーで表示する場合]がデフォルト設定になります。
+
+
+##### <i>通知チャンネルの設定</i> 
+Android8.0以上では、ユーザーがプッシュ通知を管理しやすいように通知チャンネルが導入されました。
+
+SDKにて通知チャンネルを利用するには、以下の要領でアプリのAndroidManifest.xmlの中で、「Channel ID」、「Channel Name」、「Channel Description」、「show badge」を定義してください。「Channel ID」と「Channel Name」は必須項目ですが、その他の項目は任意です。指定しない場合、「Channel Description」は空文字、「Show Badge」はtrueとなります。
+
+><b>注意：</b>
+> 
+> もし、アプリのtargetSDKVersionが26以上の場合、 「Channel ID」および「Channel Name」は必須項目となります。これらを宣言しない場合、Android8.0以上では、SDKはCoreASPから送信したプッシュ通知を表示しません。
+
+```xml
+        <meta-data android:name="com.coreasp.corepush.notificationChannelId" android:value="@string/YOUR_CHANNEL_ID"/>
+        
+        <meta-data android:name="com.coreasp.corepush.notificationChannelName" android:value="@string/YOUR_CHANNEL_NAME"/>
+        
+        <meta-data android:name="com.coreasp.corepush.notificationChannelDescription" android:value="@string/YOUR_CHANNEL_DESCRIPTION"/>
+        
+        <meta-data android:name="com.coreasp.corepush.notificationShowBadge" android:value="true"/>
+```
+
+アプリのtargetSDKVersionが25以下の場合、もしくはデバイスがAndroid8.0より以前のバージョンにて動作している場合、SDKはこの宣言を無視します。
+
+><b>追記:</b>
+>
+>通知チャンネルはAndroid8.0以降の標準機能として搭載されています。詳しくは以下のサイトをご参照ください：
+https://developer.android.com/guide/topics/ui/notifiers/notifications#ManageChannels.
+
 
 #### 通知の複数表示設定の追加（任意）
 
@@ -274,7 +313,8 @@ Applicationクラスを継承したサブクラスでSDKの初期化を行いま
 	}
 	```
 
-### デバイスの通知登録解除
+
+### デバイスの通知登録解除
 ------
 デバイスが通知を受信できるようにするには、CORE ASPサーバにデバイストークンを送信します。またデバイスが通知を受信できないようにするには、CORE ASPサーバからデバイストークンを削除します。
 
@@ -286,11 +326,15 @@ CORE ASPサーバにデバイストークンを登録するには、CorePushMana
 CorePushManager.getInstance().registerToken();
 ```
 	
-本メソッドはアプリの初回起動時やON/OFFスイッチなどで通知をONにする場合に使用してください。		#### デバイストークンの削除
+本メソッドはアプリの初回起動時やON/OFFスイッチなどで通知をONにする場合に使用してください。
+		
+#### デバイストークンの削除
 
 CORE ASPサーバからデバイストークンを削除するには、CorePushManager#unregisterToken を呼び出します。
 
-```javaCorePushManager.getInstance().unregisterToken();```
+```java
+CorePushManager.getInstance().unregisterToken();
+```
 		
 本メソッドはON/OFFスイッチなどで通知をOFFにする場合に使用してください。
 
@@ -387,23 +431,32 @@ CorePushManager.getInstance().setMultiCategoryIds(multiCategoryIds);
     
 ### ユーザー間プッシュ通知
 ------
-ユーザー間のプッシュ通知を実現するには、事前にアプリ側でユーザーのデバイストークンのCORE ASPサーバへの登録とユーザー属性の御社サーバへの登録を行う必要があります。全体のイメージ図につきましては、<a href="http://developer.core-asp.com/api_image.php">http://developer.core-asp.com/api_image.php</a> をご参照ください。
-#### CORE ASPサーバへのデバイストークンの登録
+
+ユーザー間のプッシュ通知を実現するには、事前にアプリ側でユーザーのデバイストークンのCORE ASPサーバへの登録とユーザー属性の御社サーバへの登録を行う必要があります。全体のイメージ図につきましては、<a href="http://developer.core-asp.com/api_image.php">http://developer.core-asp.com/api_image.php</a> をご参照ください。
+
+#### CORE ASPサーバへのデバイストークンの登録
 
 デバイストークンの登録を行う前に、CorePushManager#setAppUserIdでアプリ内のユーザーIDを指定します。
 
 ```java
 // アプリ内でのユーザーの識別IDを登録
-CorePushManager.getInstance().setAppUserId("userid");// デバイストークンの登録
+CorePushManager.getInstance().setAppUserId("userid");
+
+// デバイストークンの登録
 CorePushManager.getInstance()
 ```
   
 上記により、api.core-asp.com/android_token_regist.php のトークン登録APIに
 対して、app_user_id のパラメータが送信され、アプリ内でのユーザーの識別IDとデバイストークンが
 紐づいた形でDBに保存されます。
-  #### 御社サーバへのユーザー属性の登録
-CorePushRegisterUserAttributeManager#registerUserAttributes で御社サーバにユーザー属性の登録を行う前に
-、CorePushManager#setAppUserIdでアプリ内でのユーザーの識別IDを指定します。```java// アプリ内でのユーザーの識別IDを登録
+  
+#### 御社サーバへのユーザー属性の登録
+
+CorePushRegisterUserAttributeManager#registerUserAttributes で御社サーバにユーザー属性の登録を行う前に
+、CorePushManager#setAppUserIdでアプリ内でのユーザーの識別IDを指定します。
+
+```java
+// アプリ内でのユーザーの識別IDを登録
 CorePushManager.getInstance().setAppUserId("userid");
 ```
 
