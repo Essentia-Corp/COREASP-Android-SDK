@@ -5,12 +5,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coreasp.CoreASPLocationTrackingListener;
+import com.coreasp.CorePushLocationManager;
 import com.coreasp.CorePushManager;
 
 /**
@@ -29,6 +33,7 @@ public class SettingActivity extends Activity {
 
     // トークン解除失敗のコールバック用のレシーバー
     private BroadcastReceiver mUnregistrationFailBroadcastReceiver;
+    private TextView tvLocation;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,8 +109,14 @@ public class SettingActivity extends Activity {
                 //プッシュ通知がOFFの場合
                 // CORE PUSHからデバイストークンを削除
                 manager.unregisterToken();
+
+
             }
         });
+
+
+        tvLocation = findViewById(R.id.tv_location);
+
 
     }
 
@@ -128,6 +139,20 @@ public class SettingActivity extends Activity {
         // トークン解除失敗後のコールバック用のレシーバーを登録
         LocalBroadcastManager.getInstance(this).registerReceiver(mUnregistrationFailBroadcastReceiver,
                 new IntentFilter(CorePushManager.COREPUSH_UNREGISTRATION_TOKEN_REQUEST_FAIL));
+
+        CorePushLocationManager.setLocationTrackingListener(new CoreASPLocationTrackingListener() {
+            @Override
+            public void onLocationTracked(final Location location) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvLocation.setText("ロケーション: (" + location.getLongitude() + ", " + location.getLatitude() + ")");
+                    }
+                });
+
+            }
+        });
+
     }
 
     @Override

@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <CheckBox android:id="@+id/checkbox"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/checkbox"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="プッシュ通知" />
+        android:layout_margin="8dp"
+        android:text="プッシュ通知"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        tools:text="Current Location: " />
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.coreasp_sdk;
 import android.app.Application;
 
 import com.coreasp.CoreAspManager;
+import com.coreasp.CorePushLocationManager;
 import com.coreasp.CorePushManager;
 
 /**
@@ -16,6 +17,7 @@ public class MyApplication extends Application {
 
         // マネージャーの初期化処理
         CoreAspManager.initialize(this);
+
     }
 }
 

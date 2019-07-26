@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.coreasp_sdk">
 
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -12,30 +13,48 @@
         android:theme="@style/AppTheme">
 
         <!-- CORE ASPのデバッグログの有効化フラグー -->
-        <meta-data android:name="com.coreasp.debugLogEnabled" android:value="true"/>
+        <meta-data
+            android:name="com.coreasp.debugLogEnabled"
+            android:value="true" />
 
         <!-- [必須] CORE PUSHの設定キー -->
-        <meta-data android:name="com.coreasp.corepush.configKey" android:value="@string/core_push_config_key"/>
+        <meta-data
+            android:name="com.coreasp.corepush.configKey"
+            android:value="@string/core_push_config_key" />
 
-        <meta-data android:name="com.coreasp.corepush.notificationChannelId" android:value="@string/core_push_channel_id"/>
+        <meta-data
+            android:name="com.coreasp.corepush.notificationChannelId"
+            android:value="@string/core_push_channel_id" />
 
-        <meta-data android:name="com.coreasp.corepush.notificationChannelName" android:value="@string/core_push_channel_name"/>
+        <meta-data
+            android:name="com.coreasp.corepush.notificationChannelName"
+            android:value="@string/core_push_channel_name" />
 
         <!-- [必須] CORE PUSHの通知起動時のアクティビティ -->
-        <meta-data android:name="com.coreasp.corepush.notificationLaunchActivity" android:value="com.coreasp_sdk.MainActivity" />
+        <meta-data
+            android:name="com.coreasp.corepush.notificationLaunchActivity"
+            android:value="com.coreasp_sdk.MainActivity" />
 
         <!-- [必須] CORE PUSHの通知のアイコンリソースID -->
-        <meta-data android:name="com.coreasp.corepush.iconResourceId" android:resource="@mipmap/ic_launcher"/>
+        <meta-data
+            android:name="com.coreasp.corepush.iconResourceId"
+            android:resource="@mipmap/ic_launcher" />
 
         <!-- CORE PUSHの通知のアイコンのアクセント色 (Android5.0以上で有効)-->
-        <meta-data android:name="com.coreasp.corepush.iconAccentColor" android:resource="@color/colorAccent"/>
+        <meta-data
+            android:name="com.coreasp.corepush.iconAccentColor"
+            android:resource="@color/colorAccent" />
 
         <!-- CORE PUSHの通知スタイル-->
-        <meta-data android:name="com.coreasp.corepush.notificationStyle" android:resource="@integer/core_push_notification_style_dialog_and_statusBar"/>
+        <meta-data
+            android:name="com.coreasp.corepush.notificationStyle"
+            android:resource="@integer/core_push_notification_style_dialog_and_statusBar" />
 
         <!-- CORE PUSHの通知の複数表示設定。 -->
         <!-- ステータスバーに最新の１件を表示する場合はtrue、複数件表示する場合はfalseを指定します。デフォルト値はtrueになります。 -->
-        <meta-data android:name="com.coreasp.corepush.notificationCollapsed" android:value="false"/>
+        <meta-data
+            android:name="com.coreasp.corepush.notificationCollapsed"
+            android:value="false" />
 
         <service android:name="com.coreasp.CorePushMessagingService">
             <intent-filter>
@@ -51,11 +70,16 @@
         </service>
 
         <!-- CorePushRegistrationIntentService -->
-        <service android:name="com.coreasp.CorePushRegistrationIntentService" android:exported="false"/>
+        <service
+            android:name="com.coreasp.CorePushRegistrationIntentService"
+            android:exported="false" />
 
         <!--  プッシュ通知のダイアログ用のアクティビティ -->
-        <activity android:name="com.coreasp.CorePushDialog" android:theme="@android:style/Theme.Dialog" android:launchMode="singleInstance" android:excludeFromRecents="true">
-        </activity>
+        <activity
+            android:name="com.coreasp.CorePushDialog"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,12 +88,14 @@
             </intent-filter>
         </activity>
         <!-- 設定画面のアクティビティを設定 -->
-        <activity android:name=".SettingActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SettingActivity"
+            android:screenOrientation="portrait" />
 
         　<!-- 履歴画面のアクティビティを設定 -->
-        <activity android:name=".HistoryActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".HistoryActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

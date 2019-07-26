@@ -494,6 +494,32 @@ userAttributeManager.registerUserAttributes(attributes, attributeRegisterUrl, ne
 特定のユーザーに対してプッシュ通知を行うには、通知送信リクエストAPIに対して、御社サーバから通知の送信依頼
 を行います。詳細につきましては、<a href="http://developer.core-asp.com/api_request.php">http://developer.core-asp.com/api_request.php</a> をご参照ください。
 
+### 位置情報プッシュ通知をじっしするためにユーザーの位置情報を取得する
+------
+ユーザーの位置情報を取得することで、CORE ASPの管理画面もしくはAPIから特定のエリア内にいるユーザーに対してプッシュ通知を送信することができます
+
+  管理画面利用時: <a href="https://core-asp.com/corepush/android_timespace.php">https://core-asp.com/corepush/android_timespace.php</a>
+ 
+  API利用時: <a href="https://core-asp.com/corepush/android_timespace.php">https://core-asp.com/corepush/android_timespace.php</a>
+
+
+位置情報の取得を開始するには以下のファンクションを呼んでください
+
+```java
+//デフォルトオプションにてトラッキングを行うにはこのファンクションを呼んでください
+CorePushLocationManager.trackUserLocation(null);
+
+//カスタムオプションでトラッキングを行うには以下のようにこのファンクションを呼んでください
+ CorePushPermissionOptions corePushPermissionOptions = new CorePushPermissionOptions();
+ corePushPermissionOptions.setOkText(R.string.text_ok);
+ corePushPermissionOptions.setCancelText(R.string.text_cancel);
+ corePushPermissionOptions.setSettingsDialogTitle(R.string.text_setting_title);
+ corePushPermissionOptions.setSettingsDialogMessage(R.string.text_setting_message);
+ corePushPermissionOptions.setRationaleDialogTitle(R.string.text_rational_title);
+ corePushPermissionOptions.setRationaleDialogMessage(R.string.text_rational_message);
+ CorePushLocationManager.trackUserLocation(corePushPermissionOptions);
+```
+
 ### アクセス解析
 ------
 

@@ -8,10 +8,15 @@ import android.util.Log;
 import android.widget.TabHost;
 import android.widget.Toast;
 
-import com.coreasp.CorePushAppLaunchAnalyticsManager;
+import com.coreasp.CorePushLocationManager;
 import com.coreasp.CorePushManager;
+import com.coreasp.CorePushPermissionOptions;
+import com.coreasp.CorePushRegisterUserAttributeManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 設定画面と通知履歴画面のタブを持つアクティビティ
@@ -26,6 +31,7 @@ public class MainActivity extends TabActivity {
 
         // Google Playサービスが利用可能か確認する
         checkGooglePlayServicesAvailable();
+
 
         CorePushManager manager = CorePushManager.getInstance();
 
@@ -51,24 +57,25 @@ public class MainActivity extends TabActivity {
         String message = manager.getMessage(intent);
         String url = manager.getUrl(intent);
 
+
         // intentオブジェクトから通知IDを取得する
         String pushId = manager.getPushId(intent);
 
-        if (pushId != null) {
-            CorePushAppLaunchAnalyticsManager appLaunchAnalyticsManager = new CorePushAppLaunchAnalyticsManager(this);
-            appLaunchAnalyticsManager.requestAppLaunchAnalytics(pushId, "0", "0", new CorePushAppLaunchAnalyticsManager.CompletionHandler() {
-                @Override
-                public void appLaunchAnalyticsManagerSuccess() {
-                    Toast.makeText(MainActivity.this, "起動数送信成功", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void appLaunchAnalyticsManagerFail() {
-                    Toast.makeText(MainActivity.this, "起動数送信失敗", Toast.LENGTH_SHORT).show();
-
-                }
-            });
-        }
+//        if (pushId != null) {
+//            CorePushAppLaunchAnalyticsManager appLaunchAnalyticsManager = new CorePushAppLaunchAnalyticsManager(this);
+//            appLaunchAnalyticsManager.requestAppLaunchAnalytics(pushId, "0", "0", new CorePushAppLaunchAnalyticsManager.CompletionHandler() {
+//                @Override
+//                public void appLaunchAnalyticsManagerSuccess() {
+//                    Toast.makeText(MainActivity.this, "起動数送信成功", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void appLaunchAnalyticsManagerFail() {
+//                    Toast.makeText(MainActivity.this, "起動数送信失敗", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            });
+//        }
 
 //        // ユーザー属性登録
 //        List<String> attributes = Arrays.asList("1,3,7"); // 1,3,7のユーザー属性登録の場合
@@ -77,17 +84,31 @@ public class MainActivity extends TabActivity {
 //        userAttributeManager.registerUserAttributes(attributes, attributeRegisterUrl, new CorePushRegisterUserAttributeManager.CompletionHandler() {
 //            @Override
 //            public void registerUserAttributeManagerSuccess() {
-//                Toast.makeText(HomeActivity.this, "ユーザー属性登録成功", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "ユーザー属性登録成功", Toast.LENGTH_SHORT).show();
 //            }
 //
 //            @Override
 //            public void registerUserAttributeManagerFail() {
-//                Toast.makeText(HomeActivity.this, "ユーザー属性登録失敗", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "ユーザー属性登録失敗", Toast.LENGTH_SHORT).show();
 //            }
 //        });
 
+
+//        CorePushManager.getInstance().unregisterToken();
+
         // タブ画面を初期化
         this.initTabs();
+
+        CorePushLocationManager.trackUserLocation(null);
+
+//        CorePushPermissionOptions corePushPermissionOptions = new CorePushPermissionOptions();
+//        corePushPermissionOptions.setOkText(R.string.text_ok);
+//        corePushPermissionOptions.setCancelText(R.string.text_cancel);
+//        corePushPermissionOptions.setSettingsDialogTitle(R.string.text_setting_title);
+//        corePushPermissionOptions.setSettingsDialogMessage(R.string.text_setting_message);
+//        corePushPermissionOptions.setRationaleDialogTitle(R.string.text_rational_title);
+//        corePushPermissionOptions.setRationaleDialogMessage(R.string.text_rational_message);
+//        CorePushLocationManager.trackUserLocation(corePushPermissionOptions);
     }
 
     @Override
@@ -134,7 +155,7 @@ public class MainActivity extends TabActivity {
             Log.e("CorePushSample", "Google Play Serviceを利用できません。");
 
             if (apiAvailability.isUserResolvableError(resultCode)) {
-                if(apiAvailability.isUserResolvableError(resultCode)) {
+                if (apiAvailability.isUserResolvableError(resultCode)) {
                     apiAvailability.getErrorDialog(this, resultCode,
                             REQUEST_GOOGLE_PLAY_SERVICES).show();
                 }
