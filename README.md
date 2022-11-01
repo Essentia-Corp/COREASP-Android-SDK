@@ -138,7 +138,6 @@ SDKの依存ライブラリを使用するように、build.gradleファイル�
 	    // 以下の複数行を追加
 	    compile 'com.android.support:appcompat-v7:26.+'
 	    compile 'com.google.firebase:firebase-messaging:11.0.2'
-	    compile 'com.google.android.gms:play-services-gcm:11.0.2'
 	    ...
 	    compile project(':coreasp')
 	}
