@@ -45,8 +45,8 @@ CORE ASP Developer（開発者向け）：<a href="http://developer.core-asp.com
 ダウンロードしたSDKフォルダのcoreasp.aarのAARモジュールをプロジェクトに追加します。AARモジュールをプロジェクトに追加するには、以下の手順を実行します。
 
 1. 以下の方法でAARモジュールをプロジェクトに追加します。
-    1. [File] > [New Module] を選択します。
-    2. [Import .JAR/.AAR Package]、[Next]の順に選択します。
+    1. [File] > [New] > [New Module...] を選択します。
+    2. [Import...]を選択し、SDKのフォルダーを選択してNextをクリックします。
     3. SDKフォルダのcoreasp.aarのファイルパスを入力し、[Finish]を選択します。
 2. 以下の方法でアプリモジュールにAARモジュールの関連付けを行います。
     1. アプリモジュールを右クリックし、[Open Module Settings]を選択します。
@@ -63,7 +63,7 @@ CORE ASP Developer（開発者向け）：<a href="http://developer.core-asp.com
 	```gradle
 	dependencies {
 	  ...
-	  compile project(':coreasp')
+	  implementation project(':coreasp')
 	}
 	```
 
@@ -136,10 +136,10 @@ SDKの依存ライブラリを使用するように、build.gradleファイル�
 	dependencies {
 	    ...
 	    // 以下の複数行を追加
-	    compile 'com.android.support:appcompat-v7:26.+'
-	    compile 'com.google.firebase:firebase-messaging:11.0.2'
+	    implementation 'com.android.support:appcompat-v7:26.+'
+	    implementation 'com.google.firebase:firebase-messaging:11.0.2'
 	    ...
-	    compile project(':coreasp')
+	    implementation project(':coreasp')
 	}
 	
 	apply plugin: 'com.google.gms.google-services'
