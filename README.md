@@ -150,6 +150,33 @@ SDKの依存ライブラリを使用するように、build.gradleファイル�
 ### アプリのマニフェストの必要な設定の追加
 ------
 
+#### Notification Permissionを宣言する (Android 13以降で必須)
+
+アプリが新しい通知の許可をリクエストできるように、Android 13をターゲットとするようにアプリを更新し、以下のコードスニペットの内容をアプリのマニフェストファイルで宣言します。
+
+```xml
+<manifest ...>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <application ...>
+        ...
+    </application>
+</manifest>
+```
+
+開発者はカメラの使用や位置情報の取得のような他のランタイムパーミッションをリクエストするのと同様のプロセスを実装する必要があります。
+
+開発者はアプリのユーザーに通知の許可を求めるユーザーインターフェースを提供し、通知がどのように利用されるのかの情報をユーザーに提供する必要があります。
+
+>ユーザーの意思によるアプリの挙動の範囲:
+>https://developer.android.com/develop/ui/views/notifications/notification-permission#user-choice
+
+>通知の許可を訴求するユーザーインターフェースの例:
+>https://developer.android.com/static/images/permissions/notification-permission-a13-recommended-flow.svg
+
+** 注意: 上記の通知の許可を訴求するユーザーインターフェースを提供しない場合、Core ASPから送信される最初の通知の受信を契機に、通知の許可を求めるポップアップが表示されます。この際、ユーザーが通知を許可しても同通知は表示されません。
+
+>更に詳細な情報はこちらを参照: https://developer.android.com/develop/ui/views/notifications/notification-permission
+
 #### 設定キーの追加（必須）
 
 CORE ASP管理画面にログインし、ホーム画面からAndroidアプリの設定キーを確認してください。 この設定キーをApplicationManifest.xmlのmeta-data要素のcom.coreasp.corepush.configKeyのandroid:value属性の値に指定します。
