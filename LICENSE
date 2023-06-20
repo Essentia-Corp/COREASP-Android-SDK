@@ -1,3 +1,5 @@
+This product includes 'COREASP iOS SDK' (https://github.com/Essentia-Corp/COREASP-iOS-SDK), which is released under the following license(s):
+
 MIT License
 
 Copyright (c) 2023 Essentia Corporation
@@ -19,3 +21,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+----------------------------------------------------------------
+
+This product requires SDK for 'Google Cloud Messaging' (com.google.firebase:firebase-messaging) which will be downloaded and included when the project is compiled (https://github.com/firebase/firebase-android-sdk). It is released under the following license(s):
+
+    Apache 2.0 <https://github.com/firebase/firebase-android-sdk/blob/master/LICENSE>
+
+----------------------------------------------------------------
+
+All other components of this product are: Copyright (c) 2023 Essentia Corporation. All rights reserved.
